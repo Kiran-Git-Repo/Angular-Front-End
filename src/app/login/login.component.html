@@ -1,0 +1,9 @@
+<h1>Login!</h1>
+<div class="container">
+<div class="alert alert-warning" *ngIf='renderforErrorMessage'>{{ErrorMessage}}</div>
+<div>
+User Name:<input type="text" name="Uname" [(ngModel)] ="Username">
+Password:<input type="password" name="pswd" [(ngModel)] ="password"> 
+<button class="btn btn-success" (click) = loginmethod()>Login</button>
+</div>
+</div>
