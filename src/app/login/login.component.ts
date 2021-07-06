@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import {HarcodedAuthenticationService} from './../service/harcoded-authentication.service';
+import {BasicAuthenticationService} from './../service/Basic-authentication.service';
 
 
 @Component({
@@ -16,7 +17,8 @@ export class LoginComponent implements OnInit {
   renderforErrorMessage=false
 
   constructor(private router : Router,
-    public hardcodedAuthService : HarcodedAuthenticationService) { }
+    public hardcodedAuthService : HarcodedAuthenticationService,
+    private basicAuthService :BasicAuthenticationService) { }
 
   ngOnInit(): void {
   }
@@ -33,5 +35,29 @@ export class LoginComponent implements OnInit {
       this.renderforErrorMessage=true
     }
 
+  }
+
+  handleBasicLoginmethod(){
+      this.basicAuthService.executeAuthenticationService(this.Username,this.password).subscribe(
+        data=>{
+          this.router.navigate(['welcome',this.Username])
+          this.renderforErrorMessage=false
+        },
+        error=>{
+          this.renderforErrorMessage=true
+        }
+      )
+  }
+
+   handleJWTLoginmethod(){
+      this.basicAuthService.executeJWTService(this.Username,this.password).subscribe(
+        data=>{
+          this.router.navigate(['welcome',this.Username])
+          this.renderforErrorMessage=false
+        },
+        error=>{
+          this.renderforErrorMessage=true
+        }
+      )
   }
 }
